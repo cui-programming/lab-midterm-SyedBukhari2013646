@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { styles } from '../../styles/styles';
+import { TextInput, Button } from '../../ui';
 
 /**
  * Custom/SearchAndAdd
- * Students implement:
- *  - a text box to add a new zikr (phrase only, count starts at 0)
- *  - a search box to filter existing azkaar by phrase
- *  - use only components from 'ui' for inputs and buttons
- *  - lifting state up if needed
+ * Lets users search existing azkaar and add new ones.
+ * Lifts state up via onAdd and onSearch if passed.
  */
-export default function SearchAndAdd() {
+export default function SearchAndAdd({ onAdd, onSearch }) {
+  const [newZikr, setNewZikr] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleAdd = () => {
+    if (newZikr.trim()) {
+      onAdd?.(newZikr.trim());
+      setNewZikr('');
+    }
+  };
+
+  const handleSearch = (text) => {
+    setSearchTerm(text);
+    onSearch?.(text);
+  };
+
   return (
     <View style={styles.section}>
-      {/* TODO: Implement search and add UI here using ui/TextInput and ui/Button */}
+      <TextInput
+        placeholder="🔍 Search zikr..."
+        value={searchTerm}
+        onChangeText={handleSearch}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="➕ Add new zikr..."
+        value={newZikr}
+        onChangeText={setNewZikr}
+        style={styles.input}
+      />
+      <Button title="Add" onPress={handleAdd} />
     </View>
   );
 }
