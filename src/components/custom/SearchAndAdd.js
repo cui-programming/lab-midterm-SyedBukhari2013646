@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { styles } from '../../styles/styles';
-import { TextInput, Button } from '../../ui';
+import React, { useState } from "react";
+import { View, TextInput, Button } from "react-native";
+import { styles } from "../../styles/styles";
 
 /**
  * Custom/SearchAndAdd
@@ -9,13 +8,13 @@ import { TextInput, Button } from '../../ui';
  * Lifts state up via onAdd and onSearch if passed.
  */
 export default function SearchAndAdd({ onAdd, onSearch }) {
-  const [newZikr, setNewZikr] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [newZikr, setNewZikr] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleAdd = () => {
     if (newZikr.trim()) {
       onAdd?.(newZikr.trim());
-      setNewZikr('');
+      setNewZikr("");
     }
   };
 

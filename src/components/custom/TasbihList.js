@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { View, FlatList } from 'react-native';
-import { Text, Button } from '../../ui';
-import { styles } from '../../styles/styles';
-import { initialAzkaar } from '../../data/azkaar';
+import React, { useState } from "react";
+import { View, FlatList, Text, Button } from "react-native";
+import { styles } from "../../styles/styles";
+import { initialAzkaar } from "../../data/azkaar";
 
 /**
  * Custom/TasbihList
@@ -13,16 +12,14 @@ export default function TasbihList() {
 
   const increment = (id) => {
     setItems((prev) =>
-      prev.map((it) =>
-        it.id === id ? { ...it, count: it.count + 1 } : it
-      )
+      prev.map((it) => (it.id === id ? { ...it, count: it.count - 1 } : it))
     );
   };
 
   const decrement = (id) => {
     setItems((prev) =>
       prev.map((it) =>
-        it.id === id && it.count > 0 ? { ...it, count: it.count - 1 } : it
+        it.id === id && it.count > 0 ? { ...it, count: it.count + 1 } : it
       )
     );
   };
@@ -30,7 +27,7 @@ export default function TasbihList() {
   const renderItem = ({ item }) => (
     <View style={styles.itemRow}>
       <Text style={styles.itemName}>{item.phrase}</Text>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Button title="−" onPress={() => decrement(item.id)} />
         <Text style={styles.counter}>{item.count}</Text>
         <Button title="+" onPress={() => increment(item.id)} />
@@ -43,7 +40,7 @@ export default function TasbihList() {
       <Text style={styles.sectionTitle}>Tasbih Counter</Text>
       <FlatList
         data={items}
-        keyExtractor={(it) => it.id}
+        keyExtractor={(it) => it.id.toString()}
         renderItem={renderItem}
       />
     </View>
